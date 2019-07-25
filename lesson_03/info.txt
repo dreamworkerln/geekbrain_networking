@@ -1,0 +1,17 @@
+1) На всех 3 маршрутизаторах:
+
+Для обоих интерфейсов, смотрящие во "внешние" сети
+
+Router#configure
+Router(config)#interface fastethernet Fa#/0
+Router(config-if)#ip address <ip из этой сети(младший октет - 1 или 2)> 255.255.0.0
+Router(config-if)#no shutdown
+Router(config-if)#exit
+
+Для статичекой маршрутизации в каждую из "внешних для него" 
+"внутренних подсетей" двух других маршрутизаторов 
+(для каждого маршрутизатора - таких сетей 2 шт)
+
+Router(config)#ip route <адрес внутренней подсети> 255.255.255.0 <IP роутера, через который ходим>
+Router(config-if)#exit
+Router#copy running-config startup-config
