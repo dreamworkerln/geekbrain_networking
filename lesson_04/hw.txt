@@ -11,6 +11,7 @@ enable
 conf t
 (config)#router rip 
 (config-router)#version 2
+(config-router)#no auto-summary
 (config-router)#network <тут все сети к которым роутер имеет доступ>
 
 Интересно наблюдать, когда рвешь соединение между роутерами, 
