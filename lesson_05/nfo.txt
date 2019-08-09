@@ -1,5 +1,0 @@
-Обнаружен xrdp-server(остался забытым после экспериментов)
-TCP 3389
-
-и postgres11 (работающий(systemctl enabled) паралельно с postgres9, та же причина)
-TCP 5433 (т.к. 5432 был занят postgres9)

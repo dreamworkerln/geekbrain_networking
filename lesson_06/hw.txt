@@ -1,0 +1,10 @@
+
+4)
+делал ssh -R, ssh -L, SSH tun туннелирование
+по примерам из
+https://habr.com/ru/post/331348/#t4
+
+заметки: конфигурация autossh для доступа до сервера за NAT'ом через пограничный relay-server 
+https://docs.google.com/document/d/1MzYDXcHOCW8fEg3FQMU57NpK8vNM6_F1ahrgQmmNzag/edit?usp=sharing
+
+OpenVPN не пробовал.

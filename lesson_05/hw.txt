@@ -1,0 +1,155 @@
+LISTENING/BOUND:
+================================================================================================
+$ sudo netstat -tupln
+Proto Recv-Q Send-Q Local Address Foreign Address State       PID/Program name
+tcp        0      0 127.0.0.1:33543         0.0.0.0:*               LISTEN      1342/containerd 
+tcp        0      0 127.0.1.1:53            0.0.0.0:*               LISTEN      1980/dnsmasq    
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      1055/cupsd      
+tcp        0      0 127.0.0.1:5432          0.0.0.0:*               LISTEN      1406/postgres   
+tcp6       0      0 ::1:631                 :::*                    LISTEN      1055/cupsd      
+udp        0      0 0.0.0.0:45639           0.0.0.0:*                           2153/avahi-daemon: 
+udp        0      0 0.0.0.0:37529           0.0.0.0:*                           1980/dnsmasq    
+udp        0      0 0.0.0.0:54024           0.0.0.0:*                           1980/dnsmasq    
+udp        0      0 0.0.0.0:5353            0.0.0.0:*                           2153/avahi-daemon: 
+udp        0      0 127.0.1.1:53            0.0.0.0:*                           1980/dnsmasq    
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           1932/dhclient   
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           1922/dhclient   
+udp        0      0 192.168.22.70:123       0.0.0.0:*                           3414/ntpd       
+udp        0      0 172.28.40.7:123         0.0.0.0:*                           3414/ntpd       
+udp        0      0 10.10.11.24:123         0.0.0.0:*                           3414/ntpd       
+udp        0      0 192.168.1.213:123       0.0.0.0:*                           3414/ntpd       
+udp        0      0 127.0.0.1:123           0.0.0.0:*                           3414/ntpd       
+udp        0      0 0.0.0.0:123             0.0.0.0:*                           3414/ntpd       
+udp        0      0 127.0.0.1:161           0.0.0.0:*                           3440/snmpd      
+udp        0      0 0.0.0.0:57571           0.0.0.0:*                           3440/snmpd      
+udp        0      0 0.0.0.0:631             0.0.0.0:*                           1169/cups-browsed
+udp6       0      0 :::35499                :::*                                2153/avahi-daemon: 
+udp6       0      0 :::5353                 :::*                                2153/avahi-daemon: 
+udp6       0      0 fe80::e2d5:5eff:fe4:123 :::*                                3414/ntpd       
+udp6       0      0 fe80::e461:3ce5:8d6:123 :::*                                3414/ntpd       
+udp6       0      0 fe80::e2d5:5eff:fe4:123 :::*                                3414/ntpd       
+udp6       0      0 fe80::9f18:282d:c82:123 :::*                                3414/ntpd       
+udp6       0      0 ::1:123                 :::*                                3414/ntpd       
+udp6       0      0 :::123                  :::*                                3414/ntp
+
+
+TCP -----------------------------
+
+33543 containerd 
+- исполняемая среда(демон) для запуска контейнеров (бывший кусок docker)
+
+53 dnsmasq
+- DHCP и DNS сервер (DNS-кэширование)
+
+
+631 cupsd
+- Common UNIX Printing System
+
+5432 postgres
+- девятый postgres
+
+UDP -----------------------------
+
+45639 avahi-daemon
+- система обнаружения сервисов в локальной сети(Поттеринг)
+
+68 dhclient
+- dhcp client
+
+123 ntpd
+NTP демон-клиент
+
+161 snmpd
+SNMP-агент, остался после экспериментов => отключен
+
+
+631 cups-browsed
+(?)демон поиска удаленных принтеров для CUPS => (нет локального принтера) отключен
+
+
+
+
+----------
++ Ранее:
+
+tcp 3389
+Обнаружен xrdp-server(остался забытым после экспериментов) => purge
+
+tcp 5433
+и postgres11 (работал паралельно с postgres9, та же причина) => purge
+
+
+
+ESTABLISHED/TIME_WAIT:
+==========================================================================================================
+
+sudo netstat -tupn
+Активные соединения с интернетом (w/o servers)
+Proto Recv-Q Send-Q Local Address Foreign Address State       PID/Program name
+tcp        0      0 192.168.1.213:45784     104.28.0.35:443         ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:58116     64.233.165.189:443      ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:38612     74.125.131.94:443       ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:58432     74.125.131.119:443      TIME_WAIT   -               
+tcp        0      0 192.168.1.213:44412     104.25.182.28:443       ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:49572     5.61.239.21:443         ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:48162     5.61.239.21:443         ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:39082     52.34.225.30:443        ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:47868     198.252.206.25:443      ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:41430     64.233.161.189:443      ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:49676     13.69.75.239:443        ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:57396     104.28.3.142:443        ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:57192     196.54.202.12:5971      ESTABLISHED 7678/Telegram   
+tcp        0      0 192.168.1.213:35338     64.233.162.189:443      TIME_WAIT   -               
+tcp        0      0 192.168.1.213:35632     95.213.11.165:443       ESTABLISHED 3031/firefox    
+tcp        0      0 172.28.40.7:53754       172.28.40.4:139         ESTABLISHED 10353/gvfsd-smb-bro
+tcp        0      0 192.168.1.213:47642     173.194.222.189:443     ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:49002     13.69.75.239:443        ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:47692     198.252.206.25:443      ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:56556     64.233.165.189:443      TIME_WAIT   -               
+tcp        0      0 192.168.1.213:47592     173.194.222.102:443     ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:36246     173.194.73.198:443      ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:34450     173.194.222.95:443      ESTABLISHED 3031/firefox    
+tcp        0      0 192.168.1.213:52218     209.85.233.194:443      ESTABLISHED 3031/firefox    
+udp        0      0 127.0.0.1:59524         127.0.0.1:59524         ESTABLISHED 1406/postgres
+
+gvfsd-smb-bro
+- (?)SAMBA process that is used to mounts SAMBA shares
+
+
+postgres общается сам с собой через UDP ?
+
+$ sudo netstat -tupln | grep postgres
+tcp        0      0 127.0.0.1:5432          0.0.0.0:*               LISTEN      1406/postgres   
+$ sudo netstat -tupn | grep postgres
+udp        0      0 127.0.0.1:59524         127.0.0.1:59524         ESTABLISHED 1406/postgres
+
+http://www.neilconway.org/talks/hacking/ottawa/ottawa_slides.pdf
+???
+> stats collector:  Accepts run-time stats from backends via UDP
+
+
+RAW
+==========================================================================================================
+
+sudo netstat -a -p -n
+...
+raw6       0      0 :::58                   :::*                    7           1004/NetworkManager
+
+(?) не знаю, зачем это нужно NetworkManager'у
+
+
+
+
+
+Тоже не понятно:
+Do I have to bind a UDP socket in my client program to receive data?
+(Нужно ли вызывать для UDP сокета bind в клиентской программе чтобы читать данные?)
+https://stackoverflow.com/questions/3057029/do-i-have-to-bind-a-udp-socket-in-my-client-program-to-receive-data-i-always-g
+
+В примерах java для SOCK_DGRAM смотрел "netstat -tupln" получается что для общения обе стороны делают bind() 
+
+> https://cboard.cprogramming.com/networking-device-communication/71964-udp-client-needs-bind.html
+
+> If a UDP socket is unbound and either sendto() or connect() are called on it, 
+the system will automatically bind it for you and thus the recvfrom() call later on will succeed.
+И при вызове sendto() тебе ОС выдаст эфемерный порт, а можно и ручником указать порт для клиента.
