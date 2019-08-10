@@ -1,4 +1,165 @@
 
+
+2) https с сайтом google.com использует TLS v1.2/TLS v1.3
+
+Зачем google chrome использует несколько сокетов для работы с сайтом:
+
+IMHO:
+Каждая вкладка chrome  - отдельный процесс
+каждый процесс chrome использует несколько потоков
+js в V8 асинхронный - 
+соответсвтенно процесс chrome может  
+скачивать с сайта несколько ресурсов одновреммено
+(сам html, файл js, .css, favicon)
+(а потом, распарсив html (выполняя js) параллельно скачивать картинки и т.д.
+для более быстрой работы)
+
+3) insecure FTP
+
+
+// ====================================================================
+
+<<<
+    220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------\r\n
+        Response code: Service ready for new user (220)
+        Response arg: --------- Welcome to Pure-FTPd [privsep] [TLS] ----------
+    220-You are user number 1 of 50 allowed.\r\n
+    220-Local time is now 21:37. Server port: 21.\r\n
+    220-This is a private system - No anonymous login\r\n
+    220-IPv6 connections are also welcome on this server.\r\n
+    220 You will be disconnected after 15 minutes of inactivity.\r\n
+[Current working directory: ]
+
+
+
+>>>
+    AUTH TLS\r\n
+        Request command: AUTH
+        Request arg: TLS
+[Current working directory: ]
+
+
+
+<<<
+    500 This security scheme is not implemented\r\n
+        Response code: Syntax error, command unrecognized (500)
+        Response arg: This security scheme is not implemented
+[Current working directory: ]
+
+
+
+>>>
+    AUTH SSL\r\n
+        Request command: AUTH
+        Request arg: SSL
+[Current working directory: ]
+
+
+
+<<<
+    500 This security scheme is not implemented\r\n
+        Response code: Syntax error, command unrecognized (500)
+        Response arg: This security scheme is not implemented
+[Current working directory: ]
+
+
+
+>>>
+    USER tv\r\n
+        Request command: USER
+        Request arg: tv
+[Current working directory: ]
+
+
+
+<<<
+    331 User tv OK. Password required\r\n
+        Response code: User name okay, need password (331)
+        Response arg: User tv OK. Password required
+[Current working directory: ]
+
+
+>>>
+
+    PASS <password>\r\n
+        Request command: PASS
+        Request arg: <password>
+[Current working directory: ]
+
+
+<<<
+    230-OK. Current restricted directory is /\r\n
+        Response code: User logged in, proceed (230)
+        Response arg: OK. Current restricted directory is /
+    230 15785969 Kbytes used (3%) - authorized: 524288000 Kb\r\n
+[Current working directory: ]
+
+
+.....
+
+
+// ====================================================================
+
+
+
+$ nc <FTP IP> 21
+220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------
+220-You are user number 1 of 50 allowed.
+220-Local time is now 22:15. Server port: 21.
+220-This is a private system - No anonymous login
+220-IPv6 connections are also welcome on this server.
+220 You will be disconnected after 15 minutes of inactivity.
+USER tv
+331 User tv OK. Password required
+PASS <PASSWORD>
+230-OK. Current restricted directory is /
+230 15785969 Kbytes used (3%) - authorized: 524288000 Kb
+OPTS UTF8 ON
+200 OK, UTF-8 enabled
+SYST
+215 UNIX Type: L8
+FEAT
+211-Extensions supported:
+ EPRT
+ IDLE
+ MDTM
+ SIZE
+ MFMT
+ REST STREAM
+ MLST type*;size*;sizd*;modify*;UNIX.mode*;UNIX.uid*;UNIX.gid*;unique*;
+ MLSD
+ AUTH TLS
+ PBSZ
+ PROT
+ UTF8
+ ESTA
+ PASV
+ EPSV
+ SPSV
+ ESTP
+211 End.
+PWD
+257 "/" is your current location
+TYPE A
+200 TYPE is now ASCII
+PASV
+227 Entering Passive Mode (<FTP IP>,195,169) 
+// port is 50089
+// $ nc <FTP IP> 50089
+MLSD
+150 Accepted data connection
+226-Options: -a -l 
+226 259 matches total
+// Выдает в другом nc список каталогов и файлов в рабочей директории
+
+
+
+
+итого: использовать rsync (ssh with pubkey auth)
+
+
+
+
 4)
 делал ssh -R, ssh -L, SSH tun туннелирование
 по примерам из
